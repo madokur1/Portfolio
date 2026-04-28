@@ -1,0 +1,715 @@
+/* ==========================================================================
+   1. VARIABLES & ROOT
+   ========================================================================== */
+:root {
+    --primary: #00d4ff;
+    --dark: #0f172a;
+    --light-dark: #1e293b;
+    --text-white: #f8fafc;
+    --text-gray: #94a3b8;
+    --transition: all 0.3s ease;
+}
+
+/* ==========================================================================
+   2. GLOBAL RESET & BASE STYLES
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--dark);
+    color: var(--text-white);
+    line-height: 1.6;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+/* Reusable Section Styles */
+.section { 
+    padding: 5rem 2rem; 
+    max-width: 1100px; 
+    margin: 0 auto; 
+}
+
+.section-title { 
+    text-align: center; 
+    font-size: 2.5rem; 
+    margin-bottom: 3rem; 
+    position: relative; 
+}
+
+.section-title::after {
+    content: ''; 
+    background: var(--primary); 
+    width: 50px; 
+    height: 5px; 
+    position: absolute; 
+    bottom: -10px; 
+    left: 50%; 
+    transform: translateX(-50%);
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--text-gray);
+    margin-top: -2rem;
+    margin-bottom: 3rem;
+    font-size: 1rem;
+}
+
+/* Reusable Button */
+.btn {
+    display: inline-block;
+    background: var(--primary);
+    color: var(--dark);
+    padding: 0.8rem 2rem;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover { 
+    opacity: 0.8; 
+    transform: translateY(-3px); 
+}
+
+/* ==========================================================================
+   3. NAVIGATION
+   ========================================================================== */
+header {
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(5px);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    padding: 1rem 0;
+}
+
+.navbar {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.logo span { color: var(--primary); }
+
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li a {
+    color: var(--text-white);
+    text-decoration: none;
+    margin-left: 2rem;
+    transition: var(--transition);
+}
+
+.nav-links li a:hover { color: var(--primary); }
+
+.hamburger { display: none; cursor: pointer; }
+.bar { display: block; width: 25px; height: 3px; background: white; margin: 5px 0; }
+
+/* ==========================================================================
+   4. HERO SECTION
+   ========================================================================== */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center; /* Vertical center */
+    justify-content: center;
+    background: radial-gradient(circle, #1e293b 0%, #0f172a 100%);
+    padding: 80px 2rem 2rem 2rem; /* Top padding to clear the fixed navbar */
+}
+
+/* Container for Split Layout */
+.hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1100px;
+    width: 100%;
+    gap: 2rem;
+}
+
+/* Text Side */
+.hero-content {
+    flex: 1;
+    text-align: left;
+}
+
+.hero-content h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem); 
+    font-weight: 200;
+    line-height: 1.2;
+    color: #ffffff;
+    margin: 0.5rem 0 1rem 0;
+    letter-spacing: -1px;
+    white-space: nowrap; /* Forces the name to stay on one line */
+}
+
+/* Image Side */
+.hero-image-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end; /* Pushes image to the right */
+}
+
+.image-border-glow {
+    position: relative;
+    width: 100%;
+    max-width: 400px; /* Limits how big the image gets */
+    aspect-ratio: 1 / 1; /* Keeps it square */
+    border-radius: 30px;
+    padding: 5px; /* Space for the glow */
+    background: linear-gradient(45deg, var(--primary), transparent);
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
+}
+
+.image-border-glow img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 25px;
+    display: block;
+}
+
+/* MOBILE FIX: Stack elements vertically on smaller screens */
+@media (max-width: 850px) {
+    .hero-container {
+        flex-direction: column-reverse; /* Text on bottom, image on top */
+        text-align: center;
+        gap: 3rem;
+    }
+
+    .hero-content {
+        text-align: center;
+    }
+
+    .hero-image-wrapper {
+        justify-content: center;
+    }
+
+    .image-border-glow {
+        max-width: 280px; /* Smaller image on mobile */
+    }
+}
+
+/* Responsive fix for Mobile */
+@media (max-width: 900px) {
+    .hero-container {
+        flex-direction: column-reverse; /* Put text below photo on mobile */
+        text-align: center;
+        padding-top: 100px;
+    }
+    
+    .image-placeholder {
+        width: 250px;
+        height: 250px;
+    }
+}
+
+/* ==========================================================================
+   5. ABOUT SECTION (Fancy Cards)
+   ========================================================================== */
+.about-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    perspective: 1000px;
+}
+
+.about-card-fancy {
+    background: rgba(30, 41, 59, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2.5rem;
+    border-radius: 20px;
+    flex: 1;
+    min-width: 300px;
+    max-width: 350px;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    opacity: 0; 
+    transform: translateY(40px);
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+}
+
+.about-details {
+    list-style: none;
+    color: var(--text-gray);
+}
+
+.hobby-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.hobby-tags span {
+    background: rgba(0, 212, 255, 0.1);
+    color: var(--primary);
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+}
+
+.about-card-fancy:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: var(--primary);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* ==========================================================================
+   6. SKILLS SECTION (Pill Design)
+   ========================================================================== */
+.skills-grid-new {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.skill-card {
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+    padding: 1rem 1.5rem;
+    background: var(--light-dark);
+    border-radius: 50px;
+    border: 1px solid #1e293b;
+    transition: all 0.3s ease;
+}
+
+.skill-icon {
+    font-size: 1.5rem;
+    color: var(--primary);
+}
+
+.skill-card span {
+    font-weight: 500;
+    color: var(--text-white);
+}
+
+.hover-glow:hover {
+    transform: translateY(-5px);
+    background: #2d3748;
+    border-color: var(--primary);
+    box-shadow: 0 5px 20px rgba(0, 212, 255, 0.3);
+}
+
+.hover-glow:hover .skill-icon {
+    transform: scale(1.1);
+    color: #fff;
+}
+
+/* ==========================================================================
+   7. PROJECTS SECTION
+   ========================================================================== */
+.project-grid {
+    display: grid;
+    /* This ensures 3 columns on desktop, 2 on tablets, and 1 on phones */
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.project-card {
+    background: var(--light-dark);
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.project-img-container {
+    height: 220px; /* Consistent height for all 3 cards */
+    width: 100%;
+    overflow: hidden;
+    background: #0f172a;
+}
+
+.project-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* THE KEY: Forces image to fill the 220px height perfectly */
+    object-position: top; /* Keeps the top of your website visible */
+    transition: transform 0.6s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-12px);
+    border-color: var(--primary);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.project-card:hover .project-img {
+    transform: scale(1.1); /* Smooth zoom effect */
+}
+
+.project-info {
+    padding: 2rem;
+}
+
+.tech {
+    color: var(--primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin: 15px 0;
+}
+
+.project-info p {
+    font-size: 0.95rem;
+    color: var(--text-gray);
+    line-height: 1.6;
+}
+
+.project-links a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    transition: color 0.3s;
+}
+
+.project-links a:hover {
+    color: var(--primary);
+}
+/* ==========================================================================
+   8. CONTACT FORM
+   ========================================================================== */
+/* Remove Title Line */
+.contact-underline,
+.section-title::after {
+    display: none !important;
+}
+
+/* Contact Container Layout */
+.contact-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 5rem;
+    max-width: 1100px;
+    margin: 4rem auto 0;
+    padding: 0 2rem;
+}
+
+/* Left Side Styling */
+.contact-details {
+    flex: 1;
+}
+
+.details-heading {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: #fff;
+}
+
+.details-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.detail-icon {
+    width: 45px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--primary); /* Cyan Color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: 0.3s ease;
+}
+
+.detail-item:hover .detail-icon {
+    border-color: var(--primary);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 212, 255, 0.2);
+}
+
+.detail-text span {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-gray);
+    margin-bottom: 2px;
+}
+
+.detail-text a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s;
+}
+
+.detail-text a:hover {
+    color: var(--primary);
+}
+
+/* Responsive: Stack on mobile */
+@media (max-width: 850px) {
+    .contact-container {
+        flex-direction: column;
+        gap: 3rem;
+    }
+    .detail-item {
+        justify-content: flex-start;
+    }
+}
+/* ==========================================================================
+   9. ANIMATIONS (Scroll & Entrance)
+   ========================================================================== */
+
+/* Entrance for Hero */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in { animation: fadeInUp 1s ease forwards; }
+.slide-up { animation: fadeInUp 1s ease 0.3s forwards; opacity: 0; }
+
+/* Scroll Reveal Base */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Pop-in Effect for Hero/Sections */
+.pop-in {
+    opacity: 0;
+    transform: scale(0.8) translateY(50px);
+    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    will-change: transform, opacity;
+}
+
+.reveal.active .pop-in {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+/* Staggered Delays for About Cards */
+.reveal.active .about-card-fancy { opacity: 1; transform: translateY(0); }
+.reveal.active .anim-delay-1 { transition-delay: 0.2s; }
+.reveal.active .anim-delay-2 { transition-delay: 0.4s; }
+.reveal.active .anim-delay-3 { transition-delay: 0.6s; }
+
+/* ==========================================================================
+   10. FOOTER
+   ========================================================================== */
+footer {
+    text-align: center;
+    padding: 2rem;
+    background: var(--dark);
+    border-top: 1px solid var(--light-dark);
+}
+
+.socials a {
+    color: var(--text-gray);
+    margin: 0 10px;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.socials a:hover { color: var(--primary); }
+
+/* ==========================================================================
+   11. MOBILE RESPONSIVE
+   ========================================================================== */
+@media (max-width: 768px) {
+    .hero h1 { font-size: 2.5rem; }
+    
+    .hamburger { display: block; }
+    
+    .nav-links {
+        position: fixed; 
+        left: -100%; 
+        top: 70px; 
+        flex-direction: column;
+        background: var(--dark); 
+        width: 100%; 
+        text-align: center; 
+        transition: 0.3s;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    }
+    
+    .nav-links.active { left: 0; }
+    .nav-links li { margin: 1.5rem 0; }
+    .nav-links li a { margin-left: 0; }
+
+    .about-card-fancy {
+        max-width: 100%;
+    }
+
+    .skills-grid-new {
+        grid-template-columns: 1fr;
+    }
+}
+/* Container */
+.edu-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+/* Glassmorphism Card */
+.edu-card {
+    background: rgba(30, 41, 59, 0.4); /* Translucent dark */
+    backdrop-filter: blur(8px); /* The Glass Blur */
+    padding: 2rem;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-left: 4px solid var(--primary); /* Glowing vertical anchor */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.edu-card:hover {
+    background: rgba(30, 41, 59, 0.7);
+    transform: scale(1.02);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 212, 255, 0.1);
+}
+
+/* Card Header (Date and Status) */
+.edu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+}
+
+.edu-date {
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--primary);
+}
+
+.edu-status {
+    font-size: 0.7rem;
+    padding: 3px 10px;
+    background: rgba(0, 212, 255, 0.1);
+    border: 1px solid var(--primary);
+    border-radius: 20px;
+    color: var(--primary);
+    text-transform: uppercase;
+}
+
+/* Text Styling */
+.edu-card h3 {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 0.2rem;
+}
+
+.edu-location {
+    font-weight: 500;
+    color: var(--text-gray);
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.edu-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-gray);
+    opacity: 0.8;
+}
+
+/* Styling for Guide Questions */
+.chat-guides {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.guide-btn {
+    background: rgba(0, 212, 255, 0.1);
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.guide-btn:hover {
+    background: var(--primary);
+    color: var(--dark);
+}
+
+/* Ensure the bot message and user message are distinct */
+.message {
+    padding: 10px 15px;
+    border-radius: 12px;
+    max-width: 85%;
+    margin-bottom: 5px;
+}
+
+.user-msg {
+    background: var(--primary);
+    color: #000;
+    align-self: flex-end;
+}
+
+.bot-msg {
+    background: #2d3748;
+    color: #fff;
+    align-self: flex-start;
+}
+
+#contact .section-title::after {
+    display: none;
+}
