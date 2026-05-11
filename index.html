@@ -258,35 +258,56 @@
                     </div>
                 </div>
 
-                <div class="chat-wrapper anim-delay-2">
-                    <div class="chat-box">
-                        <div class="chat-header">
-                            <div class="status-dot"></div>
-                            <span>MadBot Assistant</span>
-                        </div>
-                        <div class="chat-body" id="chatBody">
-                            <div class="message bot-msg">Hi! I'm Muhammad's assistant. You can ask me about his skills, projects, or how to contact him!</div>
-                            
-                            <div class="chat-guides" id="chatGuides">
-                                <button class="guide-btn" onclick="askGuide('What are your skills?')">What are your skills?</button>
-                                <button class="guide-btn" onclick="askGuide('Tell me about your projects')">Tell me about your projects</button>
-                                <button class="guide-btn" onclick="askGuide('How can I hire you?')">How can I hire you?</button>
-                            </div>
-                        </div>
-                        <div class="chat-footer">
-                            <input type="text" id="chatInput" placeholder="Type a message...">
-                            <button id="sendBtn"><i class="fas fa-paper-plane"></i></button>
-                        </div>
-                    </div>
-                </div>
+               <div class="contact-form-wrap reveal">
+          <form id="contactForm" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fname">First Name</label>
+                <input type="text" id="fname" name="fname" placeholder="Muhammad" required>
+              </div>
+              <div class="form-group">
+                <label for="lname">Last Name</label>
+                <input type="text" id="lname" name="lname" placeholder="Maraguinot" required>
+              </div>
             </div>
-        </section>
-    </main>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="mad@example.com" required>
+            </div>
+            <div class="form-group">
+              <label for="subject">Project</label>
+              <input type="text" id="subject" name="subject" placeholder="Inquiry / Collaboration ">
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Tell me about yourself etc.." required></textarea>
+            </div>
+            <button type="submit" class="form-submit">
+              Send Message →
+            </button>
+          </form>
+          <div class="form-success" id="formSuccess">
+            ✅ Thanks for reaching out! I'll get back to you soon.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</script>
+</body>
+</html>
 
     <footer>
         <p>Muhammad Maraguinot | STI COLLEGE NAGA</p>
     </footer>
 
     <script src="script.js"></script>
+      <script type="text/javascript">
+   (function(){
+      emailjs.init("dKD3o1cMpqy-KCDhN");
+   })();
+</script>
 </body>
 </html>
